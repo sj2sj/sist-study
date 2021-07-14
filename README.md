@@ -10,11 +10,12 @@
 반복문 for
 
 
-## com.iu.s2
+## com.iu.s3
 반복문 while
 
 <hr>
 
+## 반복문 정리
 <ul>
   <li>반복 횟수가 정해져 있을 때 : for문 </li>
   <li>반복 횟수가 정해져 있지 않을 때 : while문 </li>
