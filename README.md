@@ -13,6 +13,7 @@
 ## com.iu.s2
 반복문 while
 
+<hr>
 
 <ul>
   <li>반복 횟수가 정해져 있을 때 : for문 </li>
