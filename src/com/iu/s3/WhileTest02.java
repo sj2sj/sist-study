@@ -37,8 +37,9 @@ public class WhileTest02 {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		boolean loginYN = false;
+		boolean loginYN = false; //로그인 여부 true=로그인 / false=비로그인 
 		
+		/* ------- 로그인 부분 ------- */
 		while (true) {
 			System.out.println("1: 로그인 ");
 			System.out.println("2: 종료 ");
@@ -60,7 +61,7 @@ public class WhileTest02 {
 				System.out.println("로그인 실패 ㅠㅠ ");
 			} //--------------------------------------if문 end
 			else {
-				System.out.println("종료 ..");
+				System.out.println("종료");
 				break;
 			} //--------------------------------------else문 end
 		} //--------------------------------------while문 end
@@ -75,11 +76,11 @@ public class WhileTest02 {
 			System.out.println("rpg 게임을 시작하겠습니다! :)");
 			
 			for (level = 1; level <= 15; level++) {
-				if ((level%5) == 0) { //5, 10, 15일때 gold 지급.
+				if ((level%5) == 0) { //레벨이 5, 10, 15일때 gold 지급.
 					gold += 1000*(level/5);
-					System.out.println("gold:"+gold);
+					System.out.println((1000*(level/5))+"gold 지급");
 				}
-				if (level == 15) {break;}
+				if (level == 15) {break;} //최종레벨일 때 반복문 종료
 				
 				int reqExp = level*3; //레벨업에 필요한 경험치 세팅
 				System.out.println("다음 레벨까지 사냥해야 하는 몬스터 수: "+reqExp);
