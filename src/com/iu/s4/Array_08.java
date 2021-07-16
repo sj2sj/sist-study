@@ -50,7 +50,7 @@ public class Array_08 {
 						}
 					}
 					
-					//비밀번호 체크 
+					
 					if (loginYN) {
 						System.out.println("로그인에 성공했습니다.");
 					} else {
