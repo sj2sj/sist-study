@@ -63,37 +63,39 @@ public class Array_08 {
 				case 2: //------------------------------ 회원가입
 					boolean check = false; //중복 아이디 체크 (true: 중복값 존재, false: 중복값 없음.)
 					
-					int[] ids2 = new int[ids.length+1];
-					int[] pws2 = new int[pws.length+1];
-					
-					//배열 복사
-					for (int i = 0; i < ids.length; i++) {
-						ids2[i] = ids[i];
-						pws2[i] = pws[i];
-					}
-
-					
 					System.out.println("생성할 아이디를 입력하세요: ");
-					ids2[ids.length] = sc.nextInt();
+					int inputId = sc.nextInt();
 					
-					//아이디 중복체크
+					//입력한 아이디 중복 체크
 					for (int i = 0; i < ids.length; i++) {
-						if (ids[i] == ids2[ids.length]) { 
+						if (inputId == ids[i]) {
 							check = true;
 							break;
-						}
+						} 
 					}
 					
 					if (check) {
 						System.out.println("이미 존재하는 아이디 입니다.");
 						break;
+					} else { //아이디 생성 
+						int[] ids2 = new int[ids.length+1];
+						int[] pws2 = new int[pws.length+1];
+						
+						//배열 복사
+						for (int i = 0; i < ids.length; i++) {
+							ids2[i] = ids[i];
+							pws2[i] = pws[i];
+						}
+						
+						ids2[ids.length] = inputId;
+						
+						System.out.println("비밀번호를 입력하세요: ");
+						pws2[pws.length] = sc.nextInt();
+						
+						ids = ids2;
+						pws = pws2;
 					}
 					
-					System.out.println("비밀번호를 입력하세요: ");
-					pws2[pws.length] = sc.nextInt();
-					
-					ids = ids2;
-					pws = pws2;
 					
 					System.out.println("생성되었습니다!");
 					break;
@@ -101,6 +103,7 @@ public class Array_08 {
 					
 				default: //------------------------------ 종료
 					flag = false;
+					System.out.println("종료");
 					break;
 			}
 		}
