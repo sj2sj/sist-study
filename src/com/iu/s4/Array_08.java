@@ -38,20 +38,20 @@ public class Array_08 {
 					System.out.println("비밀번호를 입력하세요: ");
 					int pw = sc.nextInt();
 					
-					int idx = 0; //인덱스 값 저장 
-					
 					boolean loginYN = false;
 					
 					//ids 배열에 입력된 id가 존재하는지 체크한다. 
 					for (int i = 0; i < ids.length; i++) {
-						if (ids[i] == id) { //아이디 존재하면 id 배열의 idx값 저장.
-							idx = i;
+						if (ids[i] == id) { 
+							if (pws[i] == pw) { 
+								loginYN = true;
+								break;
+							}
 						}
 					}
 					
 					//비밀번호 체크 
-					if (pws[idx] == pw) {
-						loginYN = true;
+					if (loginYN) {
 						System.out.println("로그인에 성공했습니다.");
 					} else {
 						System.out.println("로그인에 실패했습니다.");
@@ -76,9 +76,11 @@ public class Array_08 {
 					System.out.println("생성할 아이디를 입력하세요: ");
 					ids2[ids.length] = sc.nextInt();
 					
+					//아이디 중복체크
 					for (int i = 0; i < ids.length; i++) {
-						if (ids[i] == ids2[ids.length]) { //아이디 중복체크
-							check = true; 
+						if (ids[i] == ids2[ids.length]) { 
+							check = true;
+							break;
 						}
 					}
 					
