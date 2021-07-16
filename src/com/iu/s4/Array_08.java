@@ -42,11 +42,9 @@ public class Array_08 {
 					
 					//ids 배열에 입력된 id가 존재하는지 체크한다. 
 					for (int i = 0; i < ids.length; i++) {
-						if (ids[i] == id) { 
-							if (pws[i] == pw) { 
-								loginYN = true;
-								break;
-							}
+						if (ids[i] == id && pws[i] == pw) { 
+							loginYN = true;
+							break;
 						}
 					}
 					
