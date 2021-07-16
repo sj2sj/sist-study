@@ -17,8 +17,9 @@ public class Array_04 {
 			ar2[i] = ar1[i];
 		}
 		
+
+		ar2[ar1.length] = 4;
 		ar1 = ar2;
-		ar1[ar1.length-1] = 4;
 		
 		//1. ar1에 4라는 값을 추가하고 싶으면 어떻게?
 		for (int i = 0; i < ar1.length; i++) {
