@@ -44,16 +44,17 @@ public class ClassStudy_02 {
 		
 		//모든 학생의 정보를 출력해라
 		
+		System.out.println("이름\t번호\t국어\t영어\t수학\t총점\t평균");
+		System.out.println("=======================================================");
+		
 		for (int i = 0; i < stds.length; i++) {
-			System.out.println("=====" +(i+1)+"=====");
-			System.out.println(" 이름: " + stds[i].name);
-			System.out.println(" 번호: " + stds[i].num);
-			System.out.println(" 국어 점수: " + stds[i].kor);
-			System.out.println(" 영어 점수: " + stds[i].eng);
-			System.out.println(" 수학 점수: " + stds[i].math);
-			System.out.println(" 총점: " + stds[i].total);
-			System.out.println(" 평균: " + stds[i].avg);
-			System.out.println("=====================");
+			System.out.print(stds[i].name + "\t");
+			System.out.print(stds[i].num + "\t");
+			System.out.print(stds[i].kor + "\t");
+			System.out.print(stds[i].eng + "\t");
+			System.out.print(stds[i].math + "\t");
+			System.out.print(stds[i].total + "\t");
+			System.out.println(stds[i].avg);
 		}
 		
 		
