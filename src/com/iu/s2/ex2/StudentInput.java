@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class StudentInput {
 	
+	/*
+	 * 기존 배열을 복사해서 배열의 인덱스를 +1한다.
+	 */
 	public Student[] addArray(Student[] stds) {
 		//1. 새로운배열 생성, 기존에 존재하는 배열을 복사한다.
 		//2. 기존 배열의 값을 복사 

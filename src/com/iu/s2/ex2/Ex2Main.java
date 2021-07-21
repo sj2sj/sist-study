@@ -6,7 +6,7 @@ public class Ex2Main {
 		// TODO Auto-generated method stub
 		System.out.println("==== Ex2 Start ====");
 		
-		StudentMenu menu = new StudentMenu();
+		StudentController menu = new StudentController();
 		menu.start();
 		
 		System.out.println("==== Ex2 Finish ====");
