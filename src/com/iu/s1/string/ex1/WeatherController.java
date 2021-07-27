@@ -19,7 +19,7 @@ public class WeatherController {
 		
 		boolean flag = true; //while문 제어 flag 
 		
-		weatherInfo.makeWeather();
+		WeatherDTO[] weathers = weatherInfo.makeWeather();
 		while (flag) {
 			
 			System.out.println("1. 날씨 정보 전체 출력 ");
@@ -32,11 +32,18 @@ public class WeatherController {
 			
 			switch(select) {
 				case 1: //----------------------------------------1. 날씨 정보를 전체 출력
-					System.out.println("1. 날씨 정보 전체 출력 클릭함");
-					weatherView.view();
+//					System.out.println("1. 날씨 정보 전체 출력 클릭함");
+					weatherView.view(weathers);
 					break;
 				case 2: //----------------------------------------2. 지역 검색 정보 출력
-					System.out.println("2. 지역 검색 정보 출력 클릭함 ");
+//					System.out.println("2. 지역 검색 정보 출력 클릭함 ");
+					WeatherDTO dto = weatherInfo.searchWeather(weathers);
+					if (dto != null) {
+						weatherView.view(dto);	
+					} else {
+						weatherView.view("찾는 도시의 날씨 정보가 없습니다.");
+					}
+					
 					break;
 				case 3: //----------------------------------------3. 지역 정보 추가
 					System.out.println("3. 지역 정보 추가 클릭함 ");
