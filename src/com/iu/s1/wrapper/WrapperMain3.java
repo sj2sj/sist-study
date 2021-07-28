@@ -47,7 +47,7 @@ public class WrapperMain3 {
 //		System.out.println(remainNum);
 
 		boolean check = false;
-		if (remainNum > 10) {	//두자리 수가 결과로 나오면 
+		if (remainNum > 9) {	//두자리 수가 결과로 나오면 
 			if (remainNum%10 == rrnNum[rrnNum.length-1]) {
 				check = true;
 			}
