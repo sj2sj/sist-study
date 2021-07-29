@@ -7,6 +7,7 @@ public class Lotto {
 
 	/*
 	 * makeLotto()
+	 * by 내가 만든 것!
 	 * 1~45 사이의 번호를 랜덤으로 6개 생성 // 단, 중복X
 	 * list에 추가하여 return
 	 */
@@ -23,5 +24,33 @@ public class Lotto {
 		}
 
 		return randomList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int[] makeLotto2() {
+		
+		int[] nums = new int[6];
+		
+		Random random = new Random();
+		
+		for (int i = 0; i < nums.length; i++) {
+			nums[i] = random.nextInt(45)+1;
+			
+			for (int j = 0; j < i; j++) {
+				if (nums[j] == nums[i]) {
+					i--;
+				}
+			}
+
+		}
+		
+		return nums;
 	}
 }

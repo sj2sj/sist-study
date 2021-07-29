@@ -6,11 +6,16 @@ public class RandomMain1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 		
 		Lotto lotto = new Lotto();
 		HashSet<Integer> ar = lotto.makeLotto();
 		
-		System.out.println(ar);
+		Iterator<Integer> it = ar.iterator();
+		
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
 	}
 
 }
