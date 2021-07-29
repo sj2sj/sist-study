@@ -6,11 +6,16 @@ import java.util.Scanner;
 public class MemberController {
 	
 	private MemberDAO dao;
+	private MemberView view;
+	
 	ArrayList<MemberDTO> ar; //전역에서 쓰여야하기 때문에..
+	Scanner sc;
 	
 	public MemberController() {
 		dao = new MemberDAO();
+		view = new MemberView();
 		ar = dao.memberInit();
+		sc = new Scanner(System.in);
 	}
 	
 	public void start() {
@@ -25,10 +30,12 @@ public class MemberController {
 		boolean flag = true;
 		while (flag) {
 			
-			if (MemberSession.SESSION.isEmpty()) {
-				flag = beforeLogin();
-			} else {
+			if (MemberSession.SESSION.get("member") != null) {
+				//로그인 성공한 후
 				afterLogin();
+			} else {
+				//로그인 전, 또는 실패
+				flag = beforeLogin();
 			}
 			
 			
@@ -47,6 +54,18 @@ public class MemberController {
 	private void afterLogin() {
 		System.out.println("1. MyPage");
 		System.out.println("2. Logout");
+		
+		int select = sc.nextInt();
+		
+		if (select == 1) {
+			view.view();
+		} else {
+			System.out.println("로그아웃");
+			
+//			MemberSession.SESSION.put("member", null);
+//			MemberSession.SESSION.clear();
+			MemberSession.SESSION.remove("member");
+		}
 	}
 	
 	
@@ -60,7 +79,7 @@ public class MemberController {
 		System.out.println("2. 로그인 ");
 		System.out.println("3. 종료 ");
 		
-		Scanner sc = new Scanner(System.in);
+		
 		int select = sc.nextInt();
 		
 		boolean flag = true;
