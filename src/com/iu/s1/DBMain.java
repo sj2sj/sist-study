@@ -1,8 +1,6 @@
 package com.iu.s1;
 
-import com.iu.s1.employee.EmployeeDAO;
-import com.iu.s1.location.LocationDAO;
-import com.iu.s1.test.DBTest;
+import com.iu.s1.location.LocationController;
 
 public class DBMain {
 
@@ -11,20 +9,9 @@ public class DBMain {
 		
 		System.out.println("DB Start");
 		
-		DBTest dbTest = new DBTest();
-		//dbTest.getOne();
-		//dbTest.getCount();
-		
-		LocationDAO dao = new LocationDAO();
-		//dao.getList();
-		//dao.getOne(1800);
-		
-		EmployeeDAO employeeDAO = new EmployeeDAO();
-//		employeeDAO.getList();
-//		employeeDAO.getOne(100);
-//		employeeDAO.getSal(10000, 20000);
-		employeeDAO.search("a");
-		
+		LocationController lc = new LocationController();
+		lc.start();
+
 		System.out.println("DB Finish");
 	}
 
