@@ -129,7 +129,7 @@ public class EmployeeDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		EmployeeDTO employeeDTO = new EmployeeDTO();
+		EmployeeDTO employeeDTO = null;
 		
 		try {
 			con = dbConnect.getConnection();
@@ -141,6 +141,8 @@ public class EmployeeDAO {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
+				employeeDTO = new EmployeeDTO();
+				
 				employeeDTO.setEmployee_id(rs.getInt("employee_id"));
 				employeeDTO.setFirst_name(rs.getString("first_name"));
 				employeeDTO.setLast_name(rs.getString("last_name"));
