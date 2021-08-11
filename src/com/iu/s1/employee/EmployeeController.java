@@ -36,8 +36,11 @@ public class EmployeeController {
 //		double avgSalary = employeeDAO.getAvgSal();
 //		employeeView.view(avgSalary);
 		
-		HashMap<Integer, Double> departmentSal = employeeDAO.getDepartmentAvgSal();
-		employeeView.view(departmentSal);
+//		HashMap<Integer, Double> departmentSal = employeeDAO.getDepartmentAvgSal();
+//		employeeView.view(departmentSal);
+		
+		Emp_DepartDTO empDepartDTO = employeeDAO.getJoin(101);
+		employeeView.view(empDepartDTO);
 	}
 	
 }

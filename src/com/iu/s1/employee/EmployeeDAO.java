@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.iu.s1.department.DepartmentDTO;
 import com.iu.s1.util.DBConnect;
 
 public class EmployeeDAO {
@@ -20,6 +21,54 @@ public class EmployeeDAO {
 	}
 
 	
+	/*
+	 * getJoin
+	 */
+	public Emp_DepartDTO getJoin(int department_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Emp_DepartDTO empDepartDTO = null;
+		
+		try {
+			con = dbConnect.getConnection();
+			
+			String sql = "SELECT LAST_NAME, SALARY, HIRE_DATE, DEPARTMENT_NAME "
+					+ "FROM EMPLOYEES e "
+					+ "JOIN DEPARTMENTS d "
+					+ "USING (DEPARTMENT_ID) "
+					+ "WHERE EMPLOYEE_ID = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, department_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				empDepartDTO = new Emp_DepartDTO();
+				
+				empDepartDTO.setLast_name(rs.getString("LAST_NAME"));
+				empDepartDTO.setSalary(rs.getInt("SALARY"));
+				empDepartDTO.setHire_date(rs.getString("HIRE_DATE"));
+				
+//				DepartmentDTO departmentDTO = new DepartmentDTO();
+//				departmentDTO.setDepartment_name(rs.getString("DEPARTMENT_NAME"));
+//				empDepartDTO.setDepartmentDTO(departmentDTO);
+				
+				//Emp_DepartDTO 객체를 생성하면서 DepartmentDTO 객체를 생성하기 때문에
+				//따로 DepartmentDTO 객체를 생성하지 않아도 OK!
+				empDepartDTO.getDepartmentDTO().setDepartment_name(rs.getString("DEPARTMENT_NAME"));
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConnect.disConnect(rs, pstmt, con);
+		}
+		return empDepartDTO;
+	}
 	
 	
 	

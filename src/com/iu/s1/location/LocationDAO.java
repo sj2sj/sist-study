@@ -20,6 +20,48 @@ public class LocationDAO {
 	}
 	
 	
+	/*
+	 * getLocation
+	 * employee_id를 받아서 해당하는 사원의 location정보 출력
+	 */
+	public LocationDTO getLocation(int employee_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		LocationDTO locationDTO = null;
+		
+		try {
+			con = dbConnect.getConnection();
+			
+			String sql = "SELECT * FROM LOCATIONS WHERE LOCATION_ID = "
+					+ "(SELECT LOCATION_ID FROM DEPARTMENTS WHERE DEPARTMENT_ID = "
+					+ "(SELECT DEPARTMENT_ID FROM EMPLOYEES WHERE EMPLOYEE_ID = ?))";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, employee_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				locationDTO = new LocationDTO();
+				
+				locationDTO.setLocation_id(rs.getInt("location_id"));
+				locationDTO.setStreet_address(rs.getString("street_address"));
+				locationDTO.setPostal_code(rs.getString("postal_code"));
+				locationDTO.setCity(rs.getString("city"));
+				locationDTO.setState_province(rs.getString("state_province"));
+				locationDTO.setCountry_id(rs.getString("country_id"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConnect.disConnect(rs, pstmt, con);
+		}
+		return locationDTO;
+	}
+	
 	
 	/* 
 	 * getOne

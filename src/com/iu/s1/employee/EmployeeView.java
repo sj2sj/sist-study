@@ -22,6 +22,15 @@ public class EmployeeView {
 		System.out.println("-------------------------------------------------------------------------------------------------------------");
 	}
 	
+	
+	public void view(Emp_DepartDTO empDepartDTO) {
+		System.out.println(empDepartDTO.getLast_name());
+		System.out.println(empDepartDTO.getSalary());
+		System.out.println(empDepartDTO.getHire_date());
+		System.out.println(empDepartDTO.getDepartmentDTO().getDepartment_name());
+		System.out.println("------------------------------------------------------------------------");
+	}
+	
 	/* 정보 여러개 출력 */
 	public void view(ArrayList<EmployeeDTO> employeeDTOs) {
 		final int SIZE = employeeDTOs.size();

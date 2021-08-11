@@ -28,8 +28,11 @@ public class LocationController {
 //		ArrayList<LocationDTO> locationDTOs = locationDAO.getSearch("vi");
 //		locationView.view(locationDTOs);
 		
-		int count = locationDAO.getCount();
-		locationView.view(count);
+//		int count = locationDAO.getCount();
+//		locationView.view(count);
+		
+		LocationDTO locationDTO = locationDAO.getLocation(100);
+		locationView.view(locationDTO);
 		
 		
 		
