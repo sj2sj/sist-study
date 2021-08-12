@@ -17,6 +17,40 @@ public class DepartmentDAO {
 		 dbConnect = new DBConnect();
 	}
 
+	
+	/*
+	 * insert
+	 */
+	public int setInsert(DepartmentDTO departmentDTO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		try {
+			con = dbConnect.getConnection();
+			
+			String sql = "INSERT INTO DEPARTMENTS VALUES (?, ?, ?, ?)";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, departmentDTO.getDepartment_id());
+			pstmt.setString(2, departmentDTO.getDepartment_name());
+			pstmt.setInt(3, departmentDTO.getManager_id());
+			pstmt.setInt(4, departmentDTO.getLocation_id());
+			
+			result = pstmt.executeUpdate(); //insert, update, delete
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConnect.disConnect(pstmt, con);
+		}
+		
+		return result;
+	}
+	
+	
+	
 	/*
 	 * getJoin
 	 */

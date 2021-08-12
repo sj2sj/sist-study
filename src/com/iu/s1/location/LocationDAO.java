@@ -19,6 +19,69 @@ public class LocationDAO {
 		dbConnect = new DBConnect();
 	}
 	
+	/*
+	 * delLocation
+	 * location 삭제하는 메서드
+	 */
+	public int delLocation(LocationDTO locationDTO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			con = dbConnect.getConnection();
+			
+			String sql = "DELETE LOCATIONS WHERE LOCATION_ID = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, locationDTO.getLocation_id());
+
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConnect.disConnect(pstmt, con);
+		}
+		
+		return result;
+	}
+	
+	/* 
+	 * setLocation
+	 * location 정보 추가하는 메서드
+	 * */
+	public int setLocation(LocationDTO locationDTO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		try {
+			con = dbConnect.getConnection();
+			
+			String sql = "INSERT INTO LOCATIONS VALUES(?, ?, ?, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, locationDTO.getLocation_id());
+			pstmt.setString(2, locationDTO.getStreet_address());
+			pstmt.setString(3, locationDTO.getPostal_code());
+			pstmt.setString(4, locationDTO.getCity());
+			pstmt.setString(5, locationDTO.getState_province());
+			pstmt.setString(6, locationDTO.getCountry_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConnect.disConnect(pstmt, con);
+		}
+		return result;
+	}
+	
 	
 	/*
 	 * getLocation
@@ -63,10 +126,47 @@ public class LocationDAO {
 	}
 	
 	
+	public LocationDTO getOne (LocationDTO locationDTO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		LocationDTO result = null;
+		
+		try {
+			con = dbConnect.getConnection();
+			
+			String sql = "SELECT * FROM LOCATIONS WHERE LOCATION_ID = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, locationDTO.getLocation_id());
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				result = new LocationDTO();
+				result.setLocation_id(rs.getInt("location_id"));
+				result.setStreet_address(rs.getString("street_address"));
+				result.setPostal_code(rs.getString("postal_code"));
+				result.setCity(rs.getString("city"));
+				result.setState_province(rs.getString("state_province"));
+				result.setCountry_id(rs.getString("country_id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConnect.disConnect(rs, pstmt, con);
+		}
+		
+		return result;
+	}
+	 
+	
 	/* 
 	 * getOne
 	 * location_id를 매개변수로 받아 결과를 리턴
 	 * */
+	/*
 	public LocationDTO getOne(int location_id) {
 
 		
@@ -107,7 +207,7 @@ public class LocationDAO {
 		
 		return locationDTO;
 	}
-	
+	*/
 	
 	/*
 	 * getCount
@@ -187,13 +287,52 @@ public class LocationDAO {
 	}
 	
 	
-	
+	/*
+	 * getList
+	 */
+	public ArrayList<LocationDTO> getList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<LocationDTO> locationDTOs = new ArrayList<>();
+		
+		try {
+			con = dbConnect.getConnection();
+			
+			String sql = "SELECT * FROM LOCATIONS ORDER BY LOCATION_ID asc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				LocationDTO locationDTO = new LocationDTO();
+				
+				locationDTO.setLocation_id(rs.getInt("location_id"));
+				locationDTO.setStreet_address(rs.getString("street_address"));
+				locationDTO.setPostal_code(rs.getString("postal_code"));
+				locationDTO.setCity(rs.getString("city"));
+				locationDTO.setState_province(rs.getString("state_province"));
+				locationDTO.setCountry_id(rs.getString("country_id"));
+				
+				locationDTOs.add(locationDTO);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConnect.disConnect(rs, pstmt, con);
+		}
+		return locationDTOs;
+	}
 	
 	
 	/*
 	 * getList
 	 * Locations 테이블의 값 모두 출력한다.
 	 */
+	/*
 	public ArrayList<LocationDTO> getList() {
 
 		Connection con = null;
@@ -233,4 +372,5 @@ public class LocationDAO {
 
 		return locationDTOs;
 	}
+	 */
 }
