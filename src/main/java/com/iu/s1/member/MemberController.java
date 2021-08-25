@@ -1,10 +1,22 @@
 package com.iu.s1.member;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class MemberController {
-
-	public void start(HttpServletRequest request) {
+	
+	private MemberService memberService = null;
+	
+	public MemberController() {
+		memberService = new MemberService();
+	}
+	
+	public void start(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("Member Controller 실행!");
 		
 		String uri = request.getRequestURI();
@@ -23,8 +35,34 @@ public class MemberController {
 			
 			value = request.getParameter("pw");
 			System.out.println("pw: "+value);
-		} else if ("memberjoin.do".equals(path)) {
+		} /* ------------------------------------------------------------------------ memberJoin.do */
+		else if ("memberjoin.do".equals(path)) { 
 			System.out.println("회원가입 진행");
+			
+			if ("POST".equals(request.getMethod())) { //POST
+				request.setCharacterEncoding("UTF-8");
+//				System.out.println("한글 테스트:" + request.getParameter("name"));
+				
+				/* 코드 분리를 위해서 MemberService class를 생성함 */
+				int result = memberService.memberJoin(request, response);
+				
+				if (result != 0) {
+					System.out.println("회원가입 성공!!!");
+					response.sendRedirect("../index.jsp");
+				} else {
+					System.out.println("회원가입이 실패했습니다ㅠㅠ");
+					response.sendRedirect("./memberJoin.do"); /*  ./ : 현재 위치 */
+				}
+				
+				
+				
+			} else { //GET
+				RequestDispatcher view = request.getRequestDispatcher("../WEB-INF/views/member/memberJoin.jsp");
+				view.forward(request, response);
+			}
+			
+			
+			
 		} else if ("memberpage.do".equals(path)) {
 			System.out.println("myPage 진행");
 		} else {

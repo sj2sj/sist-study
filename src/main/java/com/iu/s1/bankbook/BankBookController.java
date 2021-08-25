@@ -47,6 +47,7 @@ public class BankBookController {
 				System.out.println(dto.getBookSale());
 			}
 			
+			request.setAttribute("dtos", bankBookDTOs);
 			
 			RequestDispatcher view = request.getRequestDispatcher("../WEB-INF/views/bankbook/bankbookList.jsp");
 			try {
@@ -59,9 +60,70 @@ public class BankBookController {
 				e.printStackTrace();
 			}
 			
-		} else if ("bankbookinsert.do".equals(path)) {
+		} else if ("bankbookinsert.do".equals(path)) { //------------------------------------------------bankbookInsert
 			System.out.println("상품 등록");
-		} else if ("bankbookselect.do".equals(path)) { //------------------------------------------------bankbookSelect
+			
+			
+			String method = request.getMethod();
+			System.out.println("Method: " + method);
+			
+			//주소가 POST로 넘어오면 (form으로 데이터 받아오면)
+			if (method.equals("POST")) {
+				System.out.println("insert2");
+				
+				System.out.println("bookName: " + request.getParameter("bookName"));
+				System.out.println("bookRate: " + request.getParameter("bookRate"));
+				System.out.println("bookSale: " + request.getParameter("bookSale"));
+				
+				String bookName = request.getParameter("bookName");
+				double bookRate = Double.parseDouble(request.getParameter("bookRate"));
+				int bookSale = Integer.parseInt(request.getParameter("bookSale"));
+
+				
+				BankBookDTO dto = new BankBookDTO();
+				dto.setBookName(bookName);
+				dto.setBookRete(bookRate);
+				dto.setBookSale(bookSale);
+				
+				//Table에 insert
+				int result = bankBookDAO.setInsert(dto);
+				
+				if (result != 0) {
+					System.out.println("처리되었다.");
+				} else {
+					System.out.println("처리되지 않았다.");
+				}
+				
+				
+				//bankbookList로 보내주기 위해선 bankbookList에 필요한 정보(ArrayList<BankBookDTO)를 보내줘야함!!!
+//				ArrayList<BankBookDTO> bankBookDTOs = bankBookDAO.getList();
+//				request.setAttribute("dtos", bankBookDTOs);
+				try {
+					response.sendRedirect("./bankBookList.do");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+			} else { //주소가 GET으로 넘어오면 (form)
+				RequestDispatcher view = request.getRequestDispatcher("../WEB-INF/views/bankbook/bankbookInsert.jsp");
+				try {
+					view.forward(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+			
+		} 
+		else if ("bankbookselect.do".equals(path)) { //------------------------------------------------bankbookSelect
 			System.out.println("상품상세조회");
 			
 			String value = request.getParameter("bookNumber");
@@ -72,6 +134,8 @@ public class BankBookController {
 			bankBookDTO = bankBookDAO.getSelect(bankBookDTO);
 			
 			System.out.println(bankBookDTO.getBookName());
+			
+			request.setAttribute("dto", bankBookDTO);
 			
 			//매개변수: 내가 보여주고 싶은 jsp 경로명
 			//주소: 웹브라우저 주소 기준.
