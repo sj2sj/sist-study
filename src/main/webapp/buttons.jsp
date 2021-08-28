@@ -11,6 +11,9 @@
 <body>
 
 	<h2 class="title"> *5가지 버튼 디자인* </h2>
+	<a href="./tables.jsp"> go tables design! </a>
+
+	<hr>
 
 	<h3> btn1 </h3>
 	<div>
