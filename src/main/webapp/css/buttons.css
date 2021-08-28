@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+body {
+	background-color: #f7f7e9;
+	padding: 50px;
+}
+
+.title {
+	color: #db8efa;
+}
+
+/* button1 */
+.btn1 {
+	width: 130px;
+	height: 60px;
+	background-color: #ead8f2;
+	color: white;
+	font-weight: bold;
+	border: white 2px solid;
+	border-radius: 20px;
+}
+
+
+/* button2 - 하트 */
+.btn2 {
+	position: relative;
+	width: 100px;
+	height: 100px;
+}
+
+.btn2:before, .btn2:after {
+	position: absolute;
+	content: "";
+	left: 50px; top: 0px;
+	width: 50px;
+	height: 90px;
+	background-color: #ff80b3;
+	border-radius: 50px 50px 0 0;
+	transform: rotate(-45deg);
+	transform-origin: 0 100%;
+}
+
+.btn2:after {
+	left: 0px;
+	transform: rotate(45deg);
+	transform-origin: 100% 100%;
+}
+
+
+
+
+/* button3 - 말풍선 */
+.btn3 {
+	position: relative;
+	background-color: #fcd4ee;
+	width: 150px;
+	height: 60px;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn3:after {
+	position: absolute;
+	content: "";
+	left: -10px; top: 10px;
+	border-top: 27px solid transparent;
+	border-right: 28px solid #fcd4ee;
+	border-bottom: 9px solid transparent;
+}
+
+
+
+/* button4 - 그라데이션 */
+.btn4 {
+	width: 150px;
+	height: 60px;
+	background: linear-gradient(to right, #3ff2e3, #30d0fc, #3892ff); 
+	border-radius: 10px;
+	border-style: none;
+	color: white;
+}
+
+
+/* button5 - 그라데이션 */
+.btn5 {
+	width: 150px;
+	height: 150px;
+	background: linear-gradient(-30deg, #69EACB, #EACCF8, #6654F1); 
+	border-radius: 50%;
+	border-style: none;
+	color: white;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+
