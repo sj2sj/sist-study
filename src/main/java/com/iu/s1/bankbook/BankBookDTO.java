@@ -4,7 +4,7 @@ public class BankBookDTO {
 
 	private long bookNumber;
 	private String bookName;
-	private double bookRete;
+	private double bookRate;
 	private int bookSale;
 	
 	public long getBookNumber() {
@@ -19,11 +19,11 @@ public class BankBookDTO {
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
-	public double getBookRete() {
-		return bookRete;
+	public double getBookRate() {
+		return bookRate;
 	}
-	public void setBookRete(double bookRete) {
-		this.bookRete = bookRete;
+	public void setBookRate(double bookRete) {
+		this.bookRate = bookRete;
 	}
 	public int getBookSale() {
 		return bookSale;

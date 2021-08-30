@@ -43,7 +43,7 @@ public class BankBookController {
 			for (BankBookDTO dto : bankBookDTOs) {
 				System.out.println(dto.getBookNumber());
 				System.out.println(dto.getBookName());
-				System.out.println(dto.getBookRete());
+				System.out.println(dto.getBookRate());
 				System.out.println(dto.getBookSale());
 			}
 			
@@ -82,7 +82,7 @@ public class BankBookController {
 				
 				BankBookDTO dto = new BankBookDTO();
 				dto.setBookName(bookName);
-				dto.setBookRete(bookRate);
+				dto.setBookRate(bookRate);
 				dto.setBookSale(bookSale);
 				
 				//Table에 insert

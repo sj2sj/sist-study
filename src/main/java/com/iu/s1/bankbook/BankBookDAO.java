@@ -32,7 +32,7 @@ public class BankBookDAO {
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setString(1, bankBookDTO.getBookName());
-			pstmt.setDouble(2, bankBookDTO.getBookRete());
+			pstmt.setDouble(2, bankBookDTO.getBookRate());
 			pstmt.setInt(3, bankBookDTO.getBookSale());
 			
 			result = pstmt.executeUpdate();
@@ -68,7 +68,7 @@ public class BankBookDAO {
 				BankBookDTO dto = new BankBookDTO();
 				dto.setBookNumber(rs.getLong("BOOK_NUMBER"));
 				dto.setBookName(rs.getString("BOOK_NAME"));
-				dto.setBookRete(rs.getDouble("BOOK_RATE"));
+				dto.setBookRate(rs.getDouble("BOOK_RATE"));
 				dto.setBookSale(rs.getInt("BOOK_SALE"));
 				bankBookDTOs.add(dto);
 			}
@@ -107,7 +107,7 @@ public class BankBookDAO {
 				resultDTO = new BankBookDTO();
 				resultDTO.setBookNumber(rs.getLong("BOOK_NUMBER"));
 				resultDTO.setBookName(rs.getString("BOOK_NAME"));
-				resultDTO.setBookRete(rs.getDouble("BOOK_RATE"));
+				resultDTO.setBookRate(rs.getDouble("BOOK_RATE"));
 				resultDTO.setBookSale(rs.getInt("BOOK_SALE"));
 			}
 			
