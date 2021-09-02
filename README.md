@@ -8,7 +8,7 @@
 
 1. 글번호, 글제목, 글내용, 작성자, 작성일, 조회수
 
-#### 테이블 생성
+#### 1) 테이블 생성
  테이블명: NOTICE <br>
  글번호 (NUM) - PK <br>
  글제목 (TITLE) <br>
@@ -17,9 +17,9 @@
  작성일 (REGDATE) <br>
  조회수 (HITS) <br>
  
-#### 시퀀스 생성
+#### 2) 시퀀스 생성
 
-#### 기능
+#### 3) 기능
 - `List` <br>
 	url: /notice/list <br>
 	jsp: /WEB-INF/board/list.jsp
