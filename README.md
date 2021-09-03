@@ -33,6 +33,7 @@
 	Request: POST <br>
 	url: /notice/insert <br>
 	jsp: /WEB-INF/views/board/insert.jsp
-- `삭제`
+- `삭제` <br>
+	url: /notice/delete 
 - `수정`
 	
