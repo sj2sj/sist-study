@@ -22,13 +22,17 @@
 #### 3) 기능
 - `List` <br>
 	url: /notice/list <br>
-	jsp: /WEB-INF/board/list.jsp
+	jsp: /WEB-INF/views/board/list.jsp
 - `상세`  <br>
 	url: /notice/select <br>
-	jsp: /WEB-INF/board/select.jsp
+	jsp: /WEB-INF/views/board/select.jsp
 - `글쓰기` <br>
+	Request: GET (form)
 	url: /notice/insert <br>
-	jsp: /WEB-INF/board/insert.jsp
+	jsp: /WEB-INF/views/board/insert.jsp
+	Request: POST
+	url: /notice/insert <br>
+	jsp: /WEB-INF/views/board/insert.jsp
 - `삭제`
 - `수정`
 	
