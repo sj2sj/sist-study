@@ -27,10 +27,10 @@
 	url: /notice/select <br>
 	jsp: /WEB-INF/views/board/select.jsp
 - `글쓰기` <br>
-	Request: GET (form)
+	Request: GET (form) <br>
 	url: /notice/insert <br>
-	jsp: /WEB-INF/views/board/insert.jsp
-	Request: POST
+	jsp: /WEB-INF/views/board/insert.jsp <br>
+	Request: POST <br>
 	url: /notice/insert <br>
 	jsp: /WEB-INF/views/board/insert.jsp
 - `삭제`
