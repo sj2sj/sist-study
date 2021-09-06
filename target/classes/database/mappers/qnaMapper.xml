@@ -7,8 +7,57 @@
   
  <mapper namespace="com.iu.s4.board.qna.QnaDAO">
  
- 	<select id="getList" resultType="QnaDTO">
- 		SELECT * FROM QNA
+ 	<select id="getCount" resultType="Long">
+ 		SELECT COUNT(NUM)
+ 		FROM QNA
+ 		WHERE
+ 		<choose>
+			<when test="kind == 'num'">
+				NUM
+			</when>
+			<when test="kind == 'writer'">
+				WRITER
+			</when>
+			<when test="kind == 'title'">
+				TITLE
+			</when>
+			<otherwise>
+				CONTENTS
+			</otherwise>
+		</choose>
+		LIKE '%' || #{search} || '%'
  	</select>
+ 
+ 	<select id="getList" resultType="QnaDTO" parameterType="Pager">
+ 		SELECT * 
+ 		FROM 
+			(SELECT ROWNUM RN, Q.* FROM
+				(SELECT *
+				FROM QNA
+				WHERE 
+				<choose>
+					<when test="kind == 'num'">
+						NUM
+					</when>
+					<when test="kind == 'writer'">
+						WRITER
+					</when>
+					<when test="kind == 'title'">
+						TITLE
+					</when>
+					<otherwise>
+						CONTENTS
+					</otherwise>
+				</choose>
+				LIKE '%' || #{search} || '%'
+				ORDER BY NUM DESC)
+			Q)
+		WHERE RN BETWEEN #{startRow} AND #{lastRow}
+ 	</select>
+ 
+ 	<insert id="setInsert" parameterType="boardDTO">
+		INSERT INTO QNA (NUM, TITLE, CONTENTS, WRITER, HITS, REF, STEP, DEPTH)
+		VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, 0, 0, 0, 0)
+	</insert>
  
  </mapper>

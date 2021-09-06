@@ -5,7 +5,7 @@ import java.sql.Date;
 public class BoardDTO {
 	private Long num;
 	private String title;
-	private String contentes;
+	private String contents;
 	private String writer;
 	private Date regDate;
 	private Long hits;
@@ -23,11 +23,11 @@ public class BoardDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContentes() {
-		return contentes;
+	public String getContents() {
+		return contents;
 	}
-	public void setContentes(String contentes) {
-		this.contentes = contentes;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 	public String getWriter() {
 		return writer;

@@ -25,14 +25,14 @@ public class QnaController {
 	}
 
 	@GetMapping("list")
-	public ModelAndView getList() throws Exception {
+	public ModelAndView getList(Pager pager) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		
-		Pager pager = new Pager();
+
 		List<BoardDTO> ar = qnaService.getList(pager);
 		
 		mv.setViewName("/board/list");
 		mv.addObject("list", ar);
+		mv.addObject("pager", pager);
 		
 		return mv;
 	}

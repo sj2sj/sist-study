@@ -5,7 +5,7 @@ import java.util.List;
 import com.iu.s4.board.util.Pager;
 
 public interface BoardDAO {
-	public Long getCount() throws Exception; //글 수 count
+	public Long getCount(Pager pager) throws Exception; //글 수 count
 	
 	public abstract List<BoardDTO> getList(Pager pager) throws Exception; //글 목록
 	public abstract BoardDTO getSelect(BoardDTO boardDTO) throws Exception; //글 상세 

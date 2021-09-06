@@ -2,6 +2,11 @@ package com.iu.s4.board.util;
 
 public class Pager {
 
+	//검색을 위한 변수 
+	private String kind; 
+	private String search;
+	//...
+	
 	private Long pn; //현재 페이지
 	private Long perPage; //한 페이지에 게시글 몇개 뿌리는지?.
 	
@@ -117,6 +122,26 @@ public class Pager {
 
 	public Long getTotalPage() {
 		return totalPage;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
+	public String getSearch() {
+		if (this.search == null) {
+			this.search = "";
+		}
+		
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 
 

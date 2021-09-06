@@ -14,7 +14,23 @@
 	
 	<c:import url="../temp/boot_nav.jsp"></c:import>
 	
+	<!-- Serach Form -->
+	<form action="./list" method="GET">
+		<div class="input-group mb-3">
+			<select name="kind" class="form-select form-select-sm">
+				<option value="num"> num </option>
+				<option value="title"> title </option>
+				<option value="content"> content </option>
+				<option value="writer"> writer </option>
+			</select>
+			
+			<input type="text" name="search" class="form-control">
+			<button type="submit" class="btn btn-outline-secondary"> search </button>
+		
+		</div>
+	</form>
 	
+	<!-- Serach Form end -->
 
 	<div class="container-fulid">
 		<h1> ${board} Board List Page </h1>
@@ -50,7 +66,7 @@
     
     	<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="n">
     		<li class="page-item"> 
-    			<a class="page-link" href="./list?pn=${n}"> ${n} </a> 
+    			<a class="page-link" href="./list?pn=${n}&kind=${pager.kind}&search=${pager.search}"> ${n} </a> 
     		</li>
 		</c:forEach>
     <li class="page-item">
