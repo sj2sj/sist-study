@@ -50,14 +50,36 @@
 					</otherwise>
 				</choose>
 				LIKE '%' || #{search} || '%'
-				ORDER BY NUM DESC)
+				ORDER BY REF DESC, STEP ASC)
 			Q)
 		WHERE RN BETWEEN #{startRow} AND #{lastRow}
  	</select>
  
  	<insert id="setInsert" parameterType="boardDTO">
 		INSERT INTO QNA (NUM, TITLE, CONTENTS, WRITER, HITS, REF, STEP, DEPTH)
-		VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, 0, 0, 0, 0)
+		VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, 0, QNA_SEQ.CURRVAL, 0, 0)
 	</insert>
+	
+	
+	<select id="getSelect" parameterType="BoardDTO" resultType="QnaDTO" >
+		SELECT * FROM QNA WHERE NUM = #{num}
+	</select>
+	
+	
+	<delete id="setDelete" parameterType="BoardDTO">
+		DELETE QNA WHERE NUM = #{num}
+	</delete>
+	
+	
+	<update id="setReplyUpdate" parameterType="QnaDTO">
+		UPDATE QNA SET STEP = step+1
+		WHERE REF = #{ref}
+		AND STEP > #{step} 
+	</update>
+ 
+ 	<insert id="setReply" parameterType="QnaDTO">
+ 		INSERT INTO QNA (NUM, TITLE, CONTENTS, WRITER, HITS, REF, STEP, DEPTH)
+		VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, 0, #{ref}, #{step}, #{depth})
+ 	</insert>
  
  </mapper>

@@ -45,7 +45,15 @@
 		<c:forEach items="${list}" var="list">
 			<tr>
 				<td> ${list.num} </td>
-				<td> <a href="./select?num=${list.num}"> ${list.title} </a> </td>
+				<td> <a href="./select?num=${list.num}">
+					<c:catch> 
+						 <!-- 답글 들여쓰기 -->
+						 <c:forEach begin="1" end="${list.depth}">
+						 	--
+						 </c:forEach>
+					 </c:catch>
+					 ${list.title} 
+				</a> </td>
 				<td> ${list.writer} </td>
 				<td> ${list.regDate} </td>
 				<td> ${list.hits} </td>
@@ -55,29 +63,31 @@
 		
 		</table>
 		
-<nav aria-label="Page navigation example">
-	<ul class="pagination justify-content-center">
-	<li class="page-item">
-      <a class="page-link" href="./list?pn=1">&laquo;</a>
-    </li>
-	<li class="page-item">
-      <a class="page-link" href="./list?pn=${pager.startNum-1}">&lt</a>
-    </li>
-    
-    	<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="n">
-    		<li class="page-item"> 
-    			<a class="page-link" href="./list?pn=${n}&kind=${pager.kind}&search=${pager.search}"> ${n} </a> 
-    		</li>
-		</c:forEach>
-    <li class="page-item">
-      	<a class="page-link" href="./list?pn=${pager.lastNum+1}">&gt</a>
-    </li>
-    <li class="page-item">
-    	<a class="page-link" href="./list?pn=${pager.totalPage}"> &raquo; </a>
-    </li>
-  </ul>
-</nav>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+			<li class="page-item">
+		      <a class="page-link" href="./list?pn=1">&laquo;</a>
+		    </li>
+			<li class="page-item">
+		      <a class="page-link" href="./list?pn=${pager.startNum-1}">&lt</a>
+		    </li>
+		    
+		    	<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="n">
+		    		<li class="page-item"> 
+		    			<a class="page-link" href="./list?pn=${n}&kind=${pager.kind}&search=${pager.search}"> ${n} </a> 
+		    		</li>
+				</c:forEach>
+		    <li class="page-item">
+		      	<a class="page-link" href="./list?pn=${pager.lastNum+1}">&gt</a>
+		    </li>
+		    <li class="page-item">
+		    	<a class="page-link" href="./list?pn=${pager.totalPage}"> &raquo; </a>
+		    </li>
+		  </ul>
+		</nav>
 		
+		
+		<a href="./insert" class="btn btn-danger"> ADD </a> 
 	</div>
 </body>
 </html>
