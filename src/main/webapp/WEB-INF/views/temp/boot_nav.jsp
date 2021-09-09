@@ -17,6 +17,12 @@
 	          <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/qna/list">Q&A</a>
 	        </li>
 	        
+     	     <li class="nav-item">
+	          <a class="nav-link" href="${pageContext.request.contextPath}/member/check">Join</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/member/login">Login</a>
+	        </li>
 	      </ul>
 	      
 	    </div>
