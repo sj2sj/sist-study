@@ -22,7 +22,7 @@
 			<input class="form-control" type="text" name="title" required>
 			
 			<label for="writer" class="form-label">WRITER</label>
-			<input class="form-control" type="text" name="writer" required>
+			<input class="form-control" value="${member.id}" type="text" name="writer" readonly="readonly" required>
 			
 			<label for="contents" class="form-label">Content</label>
 			<textarea class="form-control" rows="15" cols="" name="contents" required></textarea>
