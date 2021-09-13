@@ -9,6 +9,10 @@ public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	public int setDelete(MemberDTO memberDTO) throws Exception {
+		return memberDAO.setDelete(memberDTO);
+	}
+	
 	public MemberDTO setUpdate(MemberDTO memberDTO) throws Exception {
 		memberDAO.setUpdate(memberDTO);
 		return memberDAO.getLogin(memberDTO);

@@ -20,8 +20,16 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@PostMapping("delete")
-	public ModelAndView delete(MemberDTO memberDTO, HttpSession session) throws Exception {
+	public ModelAndView delete(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		int result = memberService.setDelete(memberDTO);
+		
+		if (result > 0) {
+			session.invalidate();
+		}
+		mv.setViewName("redirect:../");
 		
 		return mv;
 	}
@@ -153,7 +161,14 @@ public class MemberController {
 		
 		int result = memberService.setJoin(memberDTO);
 		
-		mv.setViewName("redirect:../");
+		String message = "회원가입 실패";
+		if (result > 0) {
+			message = "회원가입 성공";
+		}
+		
+		mv.addObject("msg", message);
+		mv.addObject("url", "../");
+		mv.setViewName("common/result");
 		
 		
 		return mv;

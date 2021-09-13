@@ -25,8 +25,10 @@
 		<h4> ${dto.writer} </h4>
 		<h4> ${dto.regDate} </h4>
 		
-		<a href="./delete?num=${dto.num}" class="btn btn-danger"> delete </a>
-		<a href="./update?num=${dto.num}" class="btn btn-primary"> Update </a>
+		<c:if test="${not empty member and member.id eq dto.writer}">
+			<a href="./delete?num=${dto.num}" class="btn btn-danger"> delete </a>
+			<a href="./update?num=${dto.num}" class="btn btn-primary"> Update </a>
+		</c:if>
 		
 		<c:if test="${board eq 'qna'}">
 			<a href="./reply?num=${dto.num}" class="btn btn-primary"> Reply </a>

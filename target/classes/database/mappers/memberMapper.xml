@@ -6,6 +6,11 @@
 
   
  <mapper namespace="com.iu.s4.member.MemberDAO">
+
+	 
+ 	<delete id="setDelete" parameterType="MemberDTO">
+ 		DELETE MEMBER WHERE ID = #{id} AND PW = #{pw}
+ 	</delete>
  
  	<update id="setUpdate" parameterType="MemberDTO">
  		UPDATE MEMBER SET PW = #{pw}, NAME = #{name}, PHONE = #{phone}, EMAIL = #{email}

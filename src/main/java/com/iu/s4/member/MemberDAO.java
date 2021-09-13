@@ -11,6 +11,10 @@ public class MemberDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.iu.s4.member.MemberDAO.";
 	
+	public int setDelete(MemberDTO memberDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"setDelete", memberDTO);
+	}
+	
 	public int setUpdate(MemberDTO memberDTO) throws Exception {
 		return sqlSession.update(NAMESPACE+"setUpdate", memberDTO);
 	}
