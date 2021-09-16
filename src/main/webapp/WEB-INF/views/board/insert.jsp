@@ -16,21 +16,34 @@
 	<div class="container">
 		<h2> ${board} insert page </h2>
 		
-		<form action="./insert/" method="POST">
+		<form action="./insert/" method="POST" enctype="multipart/form-data">
 		
 			<label for="title" class="form-label">TITLE</label>
 			<input class="form-control" type="text" name="title" required>
 			
 			<label for="writer" class="form-label">WRITER</label>
-			<input class="form-control" type="text" name="writer" required>
+			<input class="form-control" value="${member.id}" type="text" name="writer" readonly="readonly" required>
 			
 			<label for="contents" class="form-label">Content</label>
 			<textarea class="form-control" rows="15" cols="" name="contents" required></textarea>
+			
+			<div class="mb-5">
+				<button type="button" id="add" class="btn btn-info"> file add </button>	
+				<button type="button" class="del"> file delete </button>
+			</div>
+			<div id="addResult">
+			<!-- <div class="mb-3 f">
+   				<label for="photo" class="form-label">photo</label>
+   				<input type="file" class="form-control joinForm" name="photo" id="photo">
+			</div> -->
+		</div>
 			
 			<input type="submit" class="btn btn-primary" value="write">
 		</form>
 
 	</div>
+	
+	<script type="text/javascript" src="../resources/js/boardFile.js"></script>
 </body>
 </html>
 
