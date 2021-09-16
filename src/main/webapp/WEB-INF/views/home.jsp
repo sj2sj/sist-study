@@ -22,7 +22,14 @@
 	<h3> login 하기 전 </h3>
 </c:if>
 
+<button id="btn"> CLICK </button>
 
+
+<script type="text/javascript">
+	$("#btn").click(function() {
+		alert('ff');
+	})
+</script>
 
 
 </body>

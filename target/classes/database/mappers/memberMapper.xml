@@ -7,6 +7,14 @@
   
  <mapper namespace="com.iu.s4.member.MemberDAO">
 
+	<select id="getMemberFile" parameterType="memberDTO" resultType="MemberFileDTO">
+		SELECT * FROM MEMBERFILES WHERE ID = #{id}
+	</select>
+
+	<insert id="setFileInsert" parameterType="MemberFileDTO">
+		INSERT INTO MEMBERFILES (NUM, ID, FILENAME, ORINAME)
+		VALUES (files_seq.nextval, #{id}, #{fileName}, #{oriName})
+	</insert>
 	 
  	<delete id="setDelete" parameterType="MemberDTO">
  		DELETE MEMBER WHERE ID = #{id} AND PW = #{pw}

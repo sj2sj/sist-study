@@ -18,6 +18,10 @@
 		<h2> email: ${member.email}</h2>
 		<h2> phone: ${member.phone}</h2>
 		
+		<div>
+			<img src="../resources/upload/member/${file.fileName}" alt="img">
+		</div>
+		
 		<a href="./update" class="btn btn-primary" type="button"> 정보 수정 </a>
 		<a href="./delete" class="btn btn-danger" type="button"> 회원 탈퇴 </a>
 	</div>
