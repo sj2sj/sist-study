@@ -30,6 +30,16 @@ public class NoticeController {
 	}
 
 	
+	@GetMapping("down")
+	public ModelAndView fileDown(BoardFileDTO boardFileDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("dto", boardFileDTO);
+		mv.setViewName("fileDown");
+		return mv;
+	}
+	
+	
 	@GetMapping("select")
 	public ModelAndView getSelect(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -38,7 +48,7 @@ public class NoticeController {
 		List<BoardFileDTO> ar = noticeService.getFile(boardDTO);
 		
 		mv.addObject("dto", boardDTO);
-		mv.addObject("fileList", ar);
+//		mv.addObject("fileList", ar);
 		mv.setViewName("/board/select");
 		
 		return mv;
