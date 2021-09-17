@@ -19,7 +19,7 @@
 		<h2> phone: ${member.phone}</h2>
 		
 		<div>
-			<img src="../resources/upload/member/${file.fileName}" alt="img">
+			<img src="../resources/upload/member/${member.memberFileDTO.fileName}" alt="img">
 		</div>
 		
 		<a href="./update" class="btn btn-primary" type="button"> 정보 수정 </a>

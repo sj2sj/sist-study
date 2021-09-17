@@ -21,13 +21,16 @@
 		
 		<h4> ${dto.num} </h4>
 		<h4> ${dto.title} </h4>
-		<h4> ${dto.contents} </h4>
+		<div>
+			${dto.contents}
+		</div>
+		
 		<h4> ${dto.writer} </h4>
 		<h4> ${dto.regDate} </h4>
 		
-		<c:forEach items="${fileList}" var="list">
+		<c:forEach items="${dto.files}" var="list">
 			<div>
-				<img alt="" src="../resources/upload/${board}/${list.fileName}">
+				<a href="./down?fileName=${list.fileName}">${list.oriName}"></a>
 			</div>
 		</c:forEach>
 		

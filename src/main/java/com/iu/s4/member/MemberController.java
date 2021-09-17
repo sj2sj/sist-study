@@ -78,7 +78,7 @@ public class MemberController {
 		
 		System.out.println(memberFileDTO.getFileName());
 		
-		mv.addObject("file", memberFileDTO);
+//		mv.addObject("file", memberFileDTO);
 		mv.setViewName("member/mypage");
 		
 		return mv;
