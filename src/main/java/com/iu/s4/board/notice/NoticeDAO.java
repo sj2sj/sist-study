@@ -1,6 +1,7 @@
 package com.iu.s4.board.notice;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.iu.s4.board.BoardDAO;
 import com.iu.s4.board.BoardDTO;
 import com.iu.s4.board.BoardFileDTO;
+import com.iu.s4.board.CommentsDTO;
 import com.iu.s4.board.util.Pager;
 
 @Repository
@@ -17,6 +19,34 @@ public class NoticeDAO implements BoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.iu.s4.board.notice.NoticeDAO.";
+	
+	/* 댓글 */
+	//BoardDAO에 선언하고 오버라이딩해라
+	
+	public int setCommentUpdate(CommentsDTO commentsDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "setCommentUpdate", commentsDTO);
+	}
+	
+	public int setCommentDelete(CommentsDTO commentsDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE + "setCommentDelete", commentsDTO);
+	}
+	
+	public Long getCommentCount(CommentsDTO commentsDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getCommentCount", commentsDTO); 
+	}
+	
+	public List<CommentsDTO> getCommentList(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getCommentList", map);
+	}
+	
+	public int setComment(CommentsDTO commentsDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE + "setComment", commentsDTO);
+	}
+	
+	/* 댓글 끝 */
+	
+	
+	
 	
 	@Override
 	public List<BoardFileDTO> getFile(BoardDTO boardDTO) throws Exception {

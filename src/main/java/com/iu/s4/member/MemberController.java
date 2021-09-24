@@ -1,6 +1,7 @@
 package com.iu.s4.member;
 
 import java.net.http.HttpRequest;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -133,6 +134,30 @@ public class MemberController {
 		return mv;
 	}
 
+	@GetMapping("idCheckAjax")
+	public ModelAndView getIdCheckAjax(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		//중복검사할 아이디를 출력
+//		System.out.println("id: " + memberDTO.getId());
+		
+		
+		memberDTO = memberService.getIdCheck(memberDTO);
+		
+		//1: 사용가능 
+		//0: 중복 (사용불가능)
+		
+		int result = 0;
+		if (memberDTO == null) {
+			result = 1;
+		}
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
 	@GetMapping("idCheck")
 	public ModelAndView getIdCheck(MemberDTO memberDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();

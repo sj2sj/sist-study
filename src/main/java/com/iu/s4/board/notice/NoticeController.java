@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s4.board.BoardDTO;
 import com.iu.s4.board.BoardFileDTO;
+import com.iu.s4.board.CommentsDTO;
 import com.iu.s4.board.util.Pager;
 
 @Controller
@@ -28,7 +29,62 @@ public class NoticeController {
 	public String getBoard() {
 		return "notice";
 	}
+	
+	@PostMapping("setCommentUpdate")
+	public ModelAndView setCommentUpdate(CommentsDTO commentsDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = noticeService.setCommentUpdate(commentsDTO);
 
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
+	@GetMapping("setCommentDelete")
+	public ModelAndView setCommentDelete(CommentsDTO commentsDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = noticeService.setCommentDelete(commentsDTO);
+		
+		System.out.println(commentsDTO.getCommentNum());
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	@GetMapping("getCommentList")
+	public ModelAndView getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		commentsDTO.setBoard("N");
+//		commentsDTO.setNum(boardDTO.getNum());
+		List<CommentsDTO> ar = noticeService.getCommentList(commentsDTO, pager);
+		
+		mv.addObject("comments", ar);
+		mv.addObject("pager", pager);
+		mv.setViewName("common/ajaxList");
+		return mv;
+	}
+	
+
+	@PostMapping("comment")
+	public ModelAndView setComment(CommentsDTO commentsDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		//여기로 들어오는 요청은 무조건 notice이기 때문에 N을 넣어줌
+		commentsDTO.setBoard("N");
+		
+		int result = noticeService.setComment(commentsDTO);
+		
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 	
 	@GetMapping("down")
 	public ModelAndView fileDown(BoardFileDTO boardFileDTO) throws Exception {
@@ -41,13 +97,23 @@ public class NoticeController {
 	
 	
 	@GetMapping("select")
-	public ModelAndView getSelect(BoardDTO boardDTO) throws Exception {
+	public ModelAndView getSelect(BoardDTO boardDTO, Pager pager) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
 		boardDTO = noticeService.getSelect(boardDTO);
 		List<BoardFileDTO> ar = noticeService.getFile(boardDTO);
 		
+		CommentsDTO commentsDTO = new CommentsDTO();
+		
+		commentsDTO.setBoard("N");
+		commentsDTO.setNum(boardDTO.getNum());
+		
+//		List<CommentsDTO> cmList = noticeService.getCommentList(commentsDTO);
+		
+		
 		mv.addObject("dto", boardDTO);
+//		mv.addObject("cmList", cmList);
+
 //		mv.addObject("fileList", ar);
 		mv.setViewName("/board/select");
 		
