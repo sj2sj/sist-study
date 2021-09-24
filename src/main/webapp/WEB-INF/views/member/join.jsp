@@ -20,7 +20,6 @@
   			<div class="mb-3">
     			<label for="mid" class="form-label">아이디</label>
     			<input type="text" class="form-control joinForm" name="id" id="mid">
-    			<button type="button" id="idCheck" class="btn btn-secondary"> id중복확인 </button>
     			<div id="midResult"> </div>
 			</div>
   			<div class="mb-3">

@@ -5,6 +5,34 @@
   
 <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
 	
+	<update id="setCommentUpdate" parameterType="CommentsDTO">
+		UPDATE COMMENTS SET CONTENTS = #{contents} 
+		WHERE COMMENTNUM = #{commentNum}
+	</update>
+	
+	<delete id="setCommentDelete" parameterType="CommentsDTO">
+		DELETE FROM COMMENTS WHERE COMMENTNUM = #{commentNum}
+	</delete>
+	
+	<select id="getCommentCount" resultType="Long" parameterType="CommentsDTO">
+		SELECT COUNT(NUM) FROM COMMENTS WHERE NUM = #{num} AND BOARD = #{board}
+	</select>
+
+	<select id="getCommentList" parameterType="Map" resultType="CommentsDTO">
+		SELECT * FROM
+			(SELECT ROWNUM RN, C.*
+				FROM (SELECT * FROM COMMENTS 
+					WHERE NUM = #{comments.num} AND BOARD = #{comments.board}
+					ORDER BY COMMENTNUM DESC
+				) C) 
+			WHERE RN BETWEEN #{pager.startRow} AND #{pager.lastRow}
+	</select>
+	
+	<insert id="setComment" parameterType="CommentsDTO">
+		INSERT INTO COMMENTS
+		VALUES (COMMENTS_SEQ.NEXTVAL, #{num}, #{writer}, #{contents}, CURRENT_DATE, #{board})
+	</insert>
+	
 	<select id="getFile" parameterType="BoardDTO" resultType="BoardFileDTO">
 		SELECT * FROM NOTICEFILES WHERE NUM = #{num}
 	</select>

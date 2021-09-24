@@ -22,12 +22,16 @@
 	<h3> login 하기 전 </h3>
 </c:if>
 
+<h1 id="ar"> </h1>
 <button id="btn"> CLICK </button>
 
 
 <script type="text/javascript">
 	$("#btn").click(function() {
-		alert('ff');
+		$.get("ajax/t1?num=1", function(result) {
+			console.log('result: ' + result.trim());
+			$('#ar').append(result.trim());
+		});
 	})
 </script>
 
