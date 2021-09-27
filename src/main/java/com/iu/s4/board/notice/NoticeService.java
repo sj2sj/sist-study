@@ -81,6 +81,16 @@ public class NoticeService implements BoardService {
 		return noticeDAO.getSelect(boardDTO);
 	}
 	
+	
+	public int setFileDelete(BoardFileDTO boardFileDTO) throws Exception {
+		//폴더에서도 파일을 삭제해야 함!!
+		String realPath = sContext.getRealPath("/resources/upload/notice/");
+		File file = new File(realPath, boardFileDTO.getFileName());
+		fileManager.fileDelete(file);
+		
+		return noticeDAO.setFileDelete(boardFileDTO);
+	}
+	
 	//게시글 조회 시 file 리턴
 	public List<BoardFileDTO> getFile(BoardDTO boardDTO) throws Exception {
 		return noticeDAO.getFile(boardDTO);
