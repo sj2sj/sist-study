@@ -37,6 +37,12 @@
 		SELECT * FROM NOTICEFILES WHERE NUM = #{num}
 	</select>
 	
+	
+	<delete id="setFileDelete" parameterType="BoardFileDTO">
+		DELETE NOTICEFILES WHERE FILENUM = #{fileNum}
+	</delete>
+	
+	
 	<insert id="setFile" parameterType="BoardFileDTO">
 		INSERT INTO NOTICEFILES 
 		VALUES(files_seq.nextval, #{num}, #{fileName}, #{oriName})
