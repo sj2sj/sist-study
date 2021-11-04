@@ -8,6 +8,9 @@ import com.iu.b5.util.Pager;
 
 public interface BoardMapper {
 
+	// 파일 저장
+	public int setFileInsert(BoardFileVO boardFileVO) throws Exception;
+	
 	// 글 쓰기
 	public int setInsert(BoardVO boardVO) throws Exception;
 	

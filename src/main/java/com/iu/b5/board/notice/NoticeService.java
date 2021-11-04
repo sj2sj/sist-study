@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.iu.b5.board.BoardFileVO;
 import com.iu.b5.board.BoardService;
 import com.iu.b5.board.BoardVO;
+import com.iu.b5.util.FileManager;
 import com.iu.b5.util.Pager;
 
 
@@ -14,12 +17,36 @@ import com.iu.b5.util.Pager;
 public class NoticeService implements BoardService {
 
 	@Autowired
+	private FileManager fileManager;
+	
+	@Autowired
 	private NoticeMapper noticeMapper;
 	
 	@Override
-	public int setInsert(BoardVO boardVO) throws Exception {
+	public int setInsert(BoardVO boardVO, MultipartFile[] files) throws Exception {
 		// TODO Auto-generated method stub
-		return noticeMapper.setInsert(boardVO);
+		
+		
+		int result = noticeMapper.setInsert(boardVO);
+		
+		//파일 저장 반복
+		for (MultipartFile mf : files) {
+			if (mf.isEmpty()) {
+				continue;
+			}
+			
+			BoardFileVO boardFileVO = new BoardFileVO();
+			
+			boardFileVO.setNum(boardVO.getNum());
+			
+			String fileName = fileManager.getUseServletContext("/upload/notice/", mf);
+			boardFileVO.setFileName(fileName);
+			boardFileVO.setOriName(mf.getOriginalFilename());
+			
+			result = noticeMapper.setFileInsert(boardFileVO);
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -50,7 +77,7 @@ public class NoticeService implements BoardService {
 		Long totalCount = noticeMapper.getTotalCount(pager);
 		pager.makeNum(totalCount);
 		
-		System.out.println("total:"+totalCount);
+		
 		return noticeMapper.getList(pager);
 	}
 

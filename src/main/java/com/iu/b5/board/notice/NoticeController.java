@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.b5.board.BoardVO;
@@ -36,8 +37,9 @@ public class NoticeController {
 	}
 	
 	@PostMapping("insert")
-	public String setInsert(NoticeVO noticeVO) throws Exception {
-		int result = noticeService.setInsert(noticeVO);
+	public String setInsert(NoticeVO noticeVO, MultipartFile[] files) throws Exception {
+		
+		int result = noticeService.setInsert(noticeVO, files);
 
 		return "redirect:./list";
 
@@ -71,6 +73,7 @@ public class NoticeController {
 		
 		mv.setViewName("board/list");
 		mv.addObject("boardList", ar);
+		mv.addObject("pager", pager);
 		
 		return mv;
 	}

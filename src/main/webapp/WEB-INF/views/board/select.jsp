@@ -14,6 +14,10 @@
 	<h3> title: ${vo.title} </h3>
 	<h3> writer: ${vo.writer} </h3>
 	<h3> contents: ${vo.contents} </h3>
+	
+	<c:forEach items="${vo.fileList}" var="file">
+		<a href="../upload/notice/${file.fileName}">${file.oriName}</a>
+	</c:forEach>
 
 	<div> <a href="./delete?num=${vo.num}">delete</a> </div>
 	<div> <a href="./update?num=${vo.num}">update</a> </div>

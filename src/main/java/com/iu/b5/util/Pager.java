@@ -10,7 +10,13 @@ public class Pager {
 	
 	private Integer pn; //페이지 번호
 	private Integer perPage; //게시글 몇개씩 보여줄건지
+	
 	private Integer startRow; //limit의 시작 번호
+	
+	private Long startNum;
+	private Long lastNum;
+	
+	private boolean lastCheck = false;
 	
 	public void makeRow() {
 		this.startRow = (this.getPn()-1) * this.getPerPage();
@@ -18,6 +24,7 @@ public class Pager {
 	
 	public void makeNum(Long totalCount) {
 		//전체 페이지 개수 구하기
+
 		Long totalPage = totalCount/this.getPerPage();
 		
 		if (totalCount % this.getPerPage() != 0) {
@@ -39,18 +46,22 @@ public class Pager {
 		}
 		
 		//curBlock으로 시작번호, 끝번호 구하기
-		Long startNum = (curBlock-1) * perBlock + 1;
-		Long lastNum = curBlock * perBlock;
+		startNum = (curBlock-1) * perBlock + 1;
+		lastNum = curBlock * perBlock;
+
 		
-		System.out.println("시작번호: " + startNum);
-		System.out.println("끝번호: " + lastNum);
+		if (curBlock == totalBlock) {
+			lastCheck = true;
+			lastNum = totalPage;
+		}
 		
 	}
 	
+
 	
 	/*      setter, getter       */
 	public Integer getPn() {
-		if (this.pn == null || this.pn < 0) {
+		if (this.pn == null || this.pn <= 0) {
 			this.pn = 1;
 		}
 		return this.pn;
