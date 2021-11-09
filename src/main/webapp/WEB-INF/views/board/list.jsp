@@ -66,6 +66,10 @@
 	<div>
 		<a href="./insert">write</a>
 	</div>
+	
+	<div>
+		<a href="../member/memberLogin">login</a>
+	</div>
 
 <script type="text/javascript" src="../js/list.js"></script>
 

@@ -16,5 +16,6 @@
 		<typeAlias type="com.iu.b5.util.Pager" alias="Pager"/>
 		
 		<typeAlias type="java.lang.Long" alias="Long"/>
+		<typeAlias type="java.lang.Integer" alias="Integer"/>
   	</typeAliases>
   </configuration>

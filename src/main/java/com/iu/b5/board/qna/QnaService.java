@@ -14,36 +14,36 @@ import com.iu.b5.util.Pager;
 public class QnaService implements BoardService {
 	
 	@Autowired
-	private QnaMapper qnaMapper;
+	private QnaRepository qnaRepository;
 
 	@Override
 	public int setInsert(BoardVO boardVO, MultipartFile[] files) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaMapper.setInsert(boardVO);
+		return qnaRepository.setInsert(boardVO);
 	}
 
 	@Override
 	public int setUpdate(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaMapper.setUpdate(boardVO);
+		return qnaRepository.setUpdate(boardVO);
 	}
 
 	@Override
 	public int setDelete(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaMapper.setDelete(boardVO);
+		return qnaRepository.setDelete(boardVO);
 	}
 
 	@Override
 	public BoardVO getSelect(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaMapper.getSelect(boardVO);
+		return qnaRepository.getSelect(boardVO);
 	}
 
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaMapper.getList(pager);
+		return qnaRepository.getList(pager);
 	}
 
 }

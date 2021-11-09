@@ -5,14 +5,18 @@
   
 <mapper namespace="com.iu.b5.member.MemberRepository">
 
+	<select id="getIdCheck" parameterType="MemberVO" resultType="Integer">
+		SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
+	</select>
+
 	<select id="getLogin"  parameterType="MemberVO" resultType="MemberVO">
 		SELECT * FROM MEMBER
 		WHERE ID = #{id} AND pw = #{pw}
 	</select>
 
 	<insert id="setInsert" parameterType="MemberVO">
-		INSERT INTO MEMBER(ID, PW, NAME, EMAIL)
-		VALUES (#{id}, #{pw}, #{name}, #{email})
+		INSERT INTO MEMBER(ID, PW, NAME, EMAIL, ROLE)
+		VALUES (#{id}, #{pw}, #{name}, #{email}, 'M')
 	</insert>
 	
 	<insert id="setFileInsert" parameterType="MemberFilesVO">

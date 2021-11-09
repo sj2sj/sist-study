@@ -1,10 +1,13 @@
 package com.iu.b5.member;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,14 +49,27 @@ public class MemberController {
 	
 	/*----------------- 회원가입 -----------------*/
 	@GetMapping("/memberJoin")
-	public String setInsert() throws Exception {
+	public String setInsert(@ModelAttribute MemberVO memberVO) throws Exception {
 		return "member/memberJoin";
 	}
 	
 	@PostMapping("/memberJoin")
-	public String setInsert(MemberVO memberVO, MultipartFile mfFile) throws Exception {
+	public String setInsert(@Valid MemberVO memberVO, BindingResult bindingResult, MultipartFile mfFile) throws Exception {
 
-		int result = memberService.setInsert(memberVO, mfFile);
+		//id 중복 검증하기
+		if (memberService.memberIdCheck(memberVO, bindingResult)) {
+			return "member/memberJoin";
+		}
+		
+		//password - password check 검증, 틀렸다면
+		if (memberService.memberPwError(memberVO, bindingResult)) {
+			return "member/memberJoin";
+		}
+		
+
+		
+		
+//		int result = memberService.setInsert(memberVO, mfFile);
 		
 		return "redirect:/";
 	}
