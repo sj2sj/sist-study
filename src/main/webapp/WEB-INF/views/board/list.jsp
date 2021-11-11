@@ -44,7 +44,15 @@
 	<c:forEach items="${boardList}" var="list">
 		<tr>
 			<td> ${list.num} </td>
-			<td><a href="./select?num=${list.num}"> ${list.title} </a></td>
+			
+			<td>
+			<c:catch>
+				<c:forEach begin="1" end="${list.depth}">
+					--
+				</c:forEach>
+			</c:catch>	
+			<a href="./select?num=${list.num}"> ${list.title} </a></td>
+			
 			<td> ${list.writer} </td>
 			<td> ${list.regDate} </td>
 			<td> ${list.hit} </td>

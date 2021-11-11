@@ -5,6 +5,26 @@
   
 <mapper namespace="com.iu.b5.board.qna.QnaRepository">
 
+	<insert id="setReplyInsert" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
+		INSERT INTO QNA (num, title, contents, writer, hit, regDate, ref, step, depth)
+		values (null, #{title}, #{contents}, #{writer}, 0, now(), 
+		(SELECT REF FROM (SELECT REF FROM QNA WHERE NUM = #{num}) AS T1)
+		, (SELECT STEP FROM (SELECT STEP+1 AS STEP FROM QNA WHERE NUM = #{num}) AS T2)
+		, (SELECT DEPTH FROM (SELECT DEPTH+1 AS DEPTH FROM QNA WHERE NUM = #{num}) AS T3)
+		)
+	</insert>
+
+	<update id="setReplyUpdate" parameterType="BoardVO">
+		UPDATE QNA SET STEP = STEP+1
+		REF = (SELECT REF FROM QNA WHERE NUM = #{num})
+		AND
+		STEP > (SELECT STEP FROM QNA WHERE NUM = #{num})
+	</update>
+
+	<update id="setRefUpdate" parameterType="BoardVO">
+		UPDATE QNA SET REF = #{num} WHERE num = #{num}
+	</update>
+
 	<insert id="setInsert" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="num">
 		INSERT INTO QNA (num, title, contents, writer, hit, regDate, ref, step, depth)
 		values (#{num}, #{title}, #{contents}, #{writer}, 0, now(), 0, 0, 0)
@@ -28,8 +48,29 @@
 		SELECT * FROM QNA WHERE NUM = #{num}
 	</select>
 	
-	<select id="getList" resultType="QnaVO">
-		SELECT * FROM QNA
+	<select id="getList" parameterType="Pager" resultType="QnaVO">
+		SELECT * FROM QNA 
+		WHERE 
+		<choose>
+			<when test="kind == 'writer'">WRITER</when>
+			<when test="kind == 'contents'">CONTENTS</when>
+			<otherwise>TITLE</otherwise>
+		</choose>
+		LIKE CONCAT('%', #{search}, '%')
+		ORDER BY NUM DESC, STEP ASC
+		limit #{startRow}, #{perPage}
+	</select>
+	
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+		SELECT COUNT(NUM) FROM QNA
+		WHERE 
+		<choose>
+			<when test="kind == 'writer'">WRITER</when>
+			<when test="kind == 'contents'">CONTENTS</when>
+			<otherwise>TITLE</otherwise>
+		</choose>
+		LIKE CONCAT('%', #{search}, '%')
+		ORDER BY NUM DESC, STEP ASC
 	</select>
 
 </mapper>

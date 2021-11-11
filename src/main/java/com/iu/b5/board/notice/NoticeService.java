@@ -30,22 +30,24 @@ public class NoticeService implements BoardService {
 		int result = noticeMapper.setInsert(boardVO);
 		
 		//파일 저장 반복
-		for (MultipartFile mf : files) {
-			if (mf.isEmpty()) {
-				continue;
+		if (files != null) {
+	
+			for (MultipartFile mf : files) {
+				if (mf.isEmpty()) {
+					continue;
+				}
+				
+				BoardFileVO boardFileVO = new BoardFileVO();
+				
+				boardFileVO.setNum(boardVO.getNum());
+				
+				String fileName = fileManager.getUseServletContext("/upload/notice/", mf);
+				boardFileVO.setFileName(fileName);
+				boardFileVO.setOriName(mf.getOriginalFilename());
+				
+				result = noticeMapper.setFileInsert(boardFileVO);
 			}
-			
-			BoardFileVO boardFileVO = new BoardFileVO();
-			
-			boardFileVO.setNum(boardVO.getNum());
-			
-			String fileName = fileManager.getUseServletContext("/upload/notice/", mf);
-			boardFileVO.setFileName(fileName);
-			boardFileVO.setOriName(mf.getOriginalFilename());
-			
-			result = noticeMapper.setFileInsert(boardFileVO);
 		}
-		
 		return result;
 	}
 

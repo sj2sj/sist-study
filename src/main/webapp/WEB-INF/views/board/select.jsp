@@ -22,5 +22,12 @@
 	<div> <a href="./delete?num=${vo.num}">delete</a> </div>
 	<div> <a href="./update?num=${vo.num}">update</a> </div>
 	<div> <a href="./list">list</a> </div>
+	
+	
+	<c:if test="${board == 'qna'}">
+		<div>
+			<a href="./reply?num=${vo.num}">reply</a>
+		</div>
+	</c:if>
 </body>
 </html>

@@ -13,7 +13,7 @@ import lombok.Data;
 public class BoardVO {
 
 	private Integer num;
-	@NotBlank(message = "다쓰라고")
+	@NotBlank
 	private String title;
 	private String contents;
 	@Size(min = 3, max = 6)

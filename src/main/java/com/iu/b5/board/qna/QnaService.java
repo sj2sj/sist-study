@@ -16,10 +16,24 @@ public class QnaService implements BoardService {
 	@Autowired
 	private QnaRepository qnaRepository;
 
+	
+	public int setReplyInsert(BoardVO boardVO, MultipartFile[] files) throws Exception {
+		int result = qnaRepository.setRefUpdate(boardVO);
+		result = qnaRepository.setReplyInsert(boardVO);
+		
+		
+		//파일 저장 코드 작성
+		
+		return result;
+	}
+	
+	
 	@Override
 	public int setInsert(BoardVO boardVO, MultipartFile[] files) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaRepository.setInsert(boardVO);
+		int result = qnaRepository.setInsert(boardVO);
+		
+		return qnaRepository.setRefUpdate(boardVO);
 	}
 
 	@Override
@@ -43,6 +57,11 @@ public class QnaService implements BoardService {
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
+		pager.makeRow();
+		
+		Long totalCount = qnaRepository.getTotalCount(pager);
+		pager.makeNum(totalCount);
+		
 		return qnaRepository.getList(pager);
 	}
 

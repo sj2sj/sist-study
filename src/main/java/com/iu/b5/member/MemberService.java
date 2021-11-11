@@ -28,7 +28,7 @@ public class MemberService {
 		
 		if (memberRepository.getIdCheck(memberVO) > 0) {
 			System.out.println("중복된 아이디");
-			bindingResult.rejectValue("idCheck", "idCheck");
+			bindingResult.rejectValue("id", "member.id.equals");
 			check = true;
 		}
 		
@@ -49,7 +49,7 @@ public class MemberService {
 		
 		//2. password가 일치하는지 검증 (개발자가 직접 만들기)
 		if (!(memberVO.getPw().equals(memberVO.getPwCheck()))) {
-			bindingResult.rejectValue("pwCheck", "pwCheck");
+			bindingResult.rejectValue("pwCheck", "member.password.notEqual");
 			check = true;
 		}
 		

@@ -2,9 +2,12 @@ package com.iu.b5.board.qna;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,16 +34,35 @@ public class QnaController {
 	
 	//insert
 		@GetMapping("insert")
-		public String setInsert() throws Exception {
+		public String setInsert(@ModelAttribute BoardVO boardVO) throws Exception {
 			return "board/insert";
 		}
 		
 		@PostMapping("insert")
-		public String setInsert(QnaVO qnaVO, MultipartFile[] files) throws Exception {
-			int result = qnaService.setInsert(qnaVO, files);
+		public String setInsert(@Valid BoardVO boardVO, BindingResult bindingResult, MultipartFile[] files) throws Exception {
+			int result = qnaService.setInsert(boardVO, files);
 
+			if (bindingResult.hasErrors()) {
+				return "board/insert";
+			}
+			
 			return "redirect:./list";
 
+		}
+		
+		@GetMapping("reply")
+		public String reply(@ModelAttribute BoardVO boardVO) throws Exception {
+			return "board/reply";
+		}
+		
+		@PostMapping("reply")
+		public String reply(@Valid BoardVO boardVO, BindingResult bindingResult, MultipartFile[] files) throws Exception {
+			if (bindingResult.hasErrors()) {
+				return "board/reply";
+			}
+			int result = qnaService.setReplyInsert(boardVO, files);
+			
+			return "redirect:./list";
 		}
 
 		@GetMapping("update")
@@ -71,6 +93,7 @@ public class QnaController {
 			
 			mv.setViewName("board/list");
 			mv.addObject("boardList", ar);
+			mv.addObject("pager", pager);
 			
 			return mv;
 		}
