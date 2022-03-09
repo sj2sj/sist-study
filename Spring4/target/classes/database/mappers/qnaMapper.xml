@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+
+  
+ <mapper namespace="com.iu.s4.board.qna.QnaDAO">
+ 
+ 	<select id="getFile" parameterType="BoardDTO" resultType="BoardFileDTO">
+ 		SELECT * FROM QNAFILES WHERE NUM = #{num}
+ 	</select>
+ 
+ 	<insert id="setFile" parameterType="BoardFileDTO">
+		INSERT INTO QNAFILES 
+		VALUES(files_seq.nextval, #{num}, #{fileName}, #{oriName})
+	</insert>
+ 
+ 	<select id="getCount" resultType="Long">
+ 		SELECT COUNT(NUM)
+ 		FROM QNA
+ 		WHERE
+ 		<choose>
+			<when test="kind == 'num'">
+				NUM
+			</when>
+			<when test="kind == 'writer'">
+				WRITER
+			</when>
+			<when test="kind == 'title'">
+				TITLE
+			</when>
+			<otherwise>
+				CONTENTS
+			</otherwise>
+		</choose>
+		LIKE '%' || #{search} || '%'
+ 	</select>
+ 
+ 	<select id="getList" resultType="QnaDTO" parameterType="Pager">
+ 		SELECT * 
+ 		FROM 
+			(SELECT ROWNUM RN, Q.* FROM
+				(SELECT *
+				FROM QNA
+				WHERE 
+				<choose>
+					<when test="kind == 'num'">
+						NUM
+					</when>
+					<when test="kind == 'writer'">
+						WRITER
+					</when>
+					<when test="kind == 'title'">
+						TITLE
+					</when>
+					<otherwise>
+						CONTENTS
+					</otherwise>
+				</choose>
+				LIKE '%' || #{search} || '%'
+				ORDER BY REF DESC, STEP ASC)
+			Q)
+		WHERE RN BETWEEN #{startRow} AND #{lastRow}
+ 	</select>
+ 
+ 	<insert id="setInsert" parameterType="boardDTO">
+ 		<selectKey order="BEFORE" resultType="Long" keyProperty="num">
+ 			SELECT QNA_SEQ.NEXTVAL FROM DUAL
+ 		</selectKey>
+		INSERT INTO QNA (NUM, TITLE, CONTENTS, WRITER, HITS, REF, STEP, DEPTH)
+		VALUES (#{num}, #{title}, #{contents}, #{writer}, 0, QNA_SEQ.CURRVAL, 0, 0)
+	</insert>
+	
+	<resultMap type="QnaDTO" id="getSelectResult">
+		<id column="num" property="num"/>
+		<result column="title" property="title"/>
+		<result column="contents" property="contents"/>
+		<result column="writer" property="writer"/>
+		<result column="regDate" property="regDate"/>
+		<result column="hits" property="hits"/>
+		<result column="ref" property="ref"/>
+		<result column="step" property="step"/>
+		<result column="depth" property="depth"/>
+		
+		<collection property="files" javaType="List" ofType="BoardFileDTO" resultMap="getFileResult">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="BoardFileDTO" id="getFileResult">
+		<id column="fileNum" property="fileNum" />
+		<result column="num" property="num" />
+		<result column="fileName" property="fileName" />
+		<result column="oriName" property="oriName" />
+	</resultMap>
+	
+	<select id="getSelect" parameterType="BoardDTO" resultMap="getSelectResult" resultType="QnaDTO" >
+		SELECT * FROM QNA A 
+		LEFT OUTER JOIN QNAFILES B 
+		USING (NUM)
+		WHERE NUM = #{num}
+	</select>
+	
+	
+	<delete id="setDelete" parameterType="BoardDTO">
+		DELETE QNA WHERE NUM = #{num}
+	</delete>
+	
+	
+	<update id="setReplyUpdate" parameterType="QnaDTO">
+		UPDATE QNA SET STEP = step+1
+		WHERE REF = #{ref}
+		AND STEP > #{step} 
+	</update>
+ 
+ 	<insert id="setReply" parameterType="QnaDTO">
+ 		INSERT INTO QNA (NUM, TITLE, CONTENTS, WRITER, HITS, REF, STEP, DEPTH)
+		VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, 0, #{ref}, #{step}, #{depth})
+ 	</insert>
+ 
+ </mapper>
