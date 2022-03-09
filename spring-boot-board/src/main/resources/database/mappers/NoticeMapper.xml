@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.iu.b5.board.notice.NoticeMapper">
+	
+	<insert id="setFileInsert" parameterType="BoardFileVO">
+		INSERT INTO NOTICEFILES 
+		VALUES (NULL, #{num}, #{fileName}, #{oriName})
+	</insert>
+
+	<insert id="setInsert" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="num">
+		INSERT INTO NOTICE (num, title, contents, writer, hit, regDate)
+		values (#{num}, #{title}, #{contents}, #{writer}, 0, now())
+	</insert>
+	
+	<update id="setUpdate" parameterType="NoticeVO">
+		UPDATE NOTICE SET TITLE = #{title}, contents = #{contents}
+		WHERE NUM = #{num}
+	</update>
+	
+	<update id="setHitUpdate" parameterType="NoticeVO">
+		UPDATE NOTICE SET HIT = HIT+1
+		WHERE NUM = #{num}
+	</update>
+	
+	<delete id="setDelete" parameterType="NoticeVO">
+		DELETE FROM NOTICE WHERE NUM = #{num}
+	</delete>
+	
+	<select id="getSelect" parameterType="NoticeVO" resultType="NoticeVO" resultMap="selectResult">
+		SELECT N.*, NF.* FROM
+		NOTICE N 
+		LEFT JOIN NOTICEFILES NF
+		ON (N.NUM = NF.NUM)
+		WHERE N.NUM = #{num}
+	</select>
+			
+	<resultMap type="NoticeVO" id="selectResult">
+		<id column="num" property="num"/>
+		<result column="title" property="title"/>
+		<result column="contents" property="contents"/>
+		<result column="writer" property="writer"/>
+		<result column="hit" property="hit"/>
+		<result column="regDate" property="regDate"/>
+		<collection property="fileList" javaType="List" ofType="BoardFileVO">
+			<id column="fileNum" property="fileNum" />
+			<result column="fileName" property="fileName" />
+			<result column="oriName" property="oriName" />
+		</collection>
+	</resultMap>
+	
+	<select id="getList" parameterType="Pager" resultType="NoticeVO">
+		SELECT * FROM NOTICE 
+		WHERE 
+		<choose>
+			<when test="kind == 'writer'">WRITER</when>
+			<when test="kind == 'contents'">CONTENTS</when>
+			<otherwise>TITLE</otherwise>
+		</choose>
+		LIKE CONCAT('%', #{search}, '%')
+		ORDER BY NUM DESC
+		limit #{startRow}, #{perPage}
+	</select>
+	
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+		SELECT COUNT(NUM) FROM NOTICE
+		WHERE 
+		<choose>
+			<when test="kind == 'writer'">WRITER</when>
+			<when test="kind == 'contents'">CONTENTS</when>
+			<otherwise>TITLE</otherwise>
+		</choose>
+		LIKE CONCAT('%', #{search}, '%')
+		ORDER BY NUM DESC
+	</select>
+
+</mapper>
